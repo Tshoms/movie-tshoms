@@ -101,6 +101,41 @@ const NavBarStyled = styled.div`
   }
 
   /* ---- media Querie ---- */
+  @media (max-width: 414px) {
+    .left-space {
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .right-space {
+      display: none;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .left-space {
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .right-space {
+      display: none;
+    }
+  }
+
+  @media (max-width: 365px) {
+    .left-space {
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .right-space {
+      display: none;
+    }
+  }
 
   @media (max-width: 350px) {
     .left-space {
