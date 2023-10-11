@@ -1,0 +1,87 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.main-home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* color: white; */
+}
+
+.content2 {
+  display: none;
+  /* position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+  /* color: white; */
+}
+
+/* rgba - pour l'effet noir */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+}
+
+h1 {
+  font-family: "Lilita One", cursive;
+  color: #1ce783;
+  font-size: 58px;
+  margin-bottom: 25px;
+}
+
+h2 {
+  font-family: "Caveat", cursive;
+  color: #1ce783;
+  font-size: 36px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+/* ---- media Querie ---- */
+
+@media (max-width: 600px) {
+  h1 {
+    font-family: "Lilita One", cursive;
+    color: #1ce783;
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 400px) {
+  h1 {
+    font-family: "Lilita One", cursive;
+    color: #1ce783;
+    font-size: 40px;
+  }
+}
