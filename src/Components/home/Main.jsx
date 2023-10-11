@@ -32,6 +32,7 @@ function Main() {
     getMovies();
   }, []);
 
+  // pagination algo ----------
   const prePage = (event) => {
     event.preventDefault();
     console.log("prePage !!!");
@@ -52,6 +53,12 @@ function Main() {
     console.log("valeur id :", id);
     setCurrentPage(id);
   };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    alert("handleDelete !!!");
+  };
+
   return (
     <MainStyled>
       <h3>Movies</h3>
@@ -64,6 +71,7 @@ function Main() {
             category={item.category}
             likes={item.likes}
             dislikes={item.dislikes}
+            onclick={handleDelete}
           />
         ))}
       </div>

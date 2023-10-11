@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { BiSolidDislike, BiSolidLike } from "react-icons/bi";
+import { TiDelete } from "react-icons/ti";
 
-function Card({ id, title, category, likes, dislikes }) {
+function Card({ id, title, category, likes, dislikes, onclick }) {
   return (
     <CardStyled id={id}>
       <div className="title-space">
@@ -22,11 +23,15 @@ function Card({ id, title, category, likes, dislikes }) {
           <p>{likes}</p>
         </div>
       </div>
+      <div className="delete">
+        <TiDelete className="icon-delete" onClick={onclick} />
+      </div>
     </CardStyled>
   );
 }
 
 const CardStyled = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 200px;
@@ -100,7 +105,22 @@ const CardStyled = styled.div`
       }
     }
   }
+  .delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 35px;
+    width: 60px;
+    /* border: 1px solid red; */
+    top: 0;
 
+    .icon-delete {
+      color: red;
+      font-size: 40px;
+      cursor: pointer;
+    }
+  }
   /* ---- media Querie ---- */
 
   @media (max-width: 440px) {
