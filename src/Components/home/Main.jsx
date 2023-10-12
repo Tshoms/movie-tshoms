@@ -11,9 +11,6 @@ function Main() {
   const moviesArray = useSelector((state) => state.moviesItems.moviesItems);
   console.log("valeur redux data :", moviesArray);
 
-  const [arrayMovies, setArrayMovies] = useState(moviesArray);
-  console.log("valeur de arrayState :", arrayMovies);
-
   const dispatch = useDispatch();
 
   // pagination ----------
@@ -21,8 +18,8 @@ function Main() {
   const recordsPerPage = 4; // NB items/movies par page.
   const lastIndex = currentPage * recordsPerPage; // obtenir le dernier index par page afin de le multiplier par 4.
   const firstIndex = lastIndex - recordsPerPage; // obtenir le premier index par page afin de le soustraire par 4.
-  const records = arrayMovies.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(arrayMovies.length / recordsPerPage);
+  const records = moviesArray.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(moviesArray.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
   // comportements ------------
@@ -31,7 +28,7 @@ function Main() {
       movies$
         .then((movies) => {
           console.log("Liste des films :", movies);
-          setArrayMovies(movies);
+          store.dispatch(getMoviesState(movies));
         })
         .catch((error) => {
           console.error("Erreur lors du chargement des films :", error);
@@ -41,7 +38,7 @@ function Main() {
     getMovies();
   }, []);
 
-  store.dispatch(getMoviesState(arrayMovies));
+  // store.dispatch(getMoviesState(arrayMovies));
 
   // pagination algo ----------
   const prePage = (event) => {
@@ -66,7 +63,6 @@ function Main() {
   };
 
   const handleDelete = (id) => {
-    alert("handleDelete !!!");
     dispatch(removeMovie(id));
   };
 

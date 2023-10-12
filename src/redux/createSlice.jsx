@@ -16,14 +16,9 @@ export const movieSlice = createSlice({
     },
     removeMovie: (state, action) => {
       const id = action.payload;
-      state.moviesItems = state.moviesItems.map((item) => item.id !== id);
+      console.log("valeur de id :", id);
+      state.moviesItems = state.moviesItems.filter((item) => item.id !== id);
     },
-    // getFilter: (state, action) => {
-    //   const category = action.payload;
-    //   state.moviesItems = state.moviesItems.map(
-    //     (item) => item.category === category
-    //   );
-    // },
   },
 });
 
