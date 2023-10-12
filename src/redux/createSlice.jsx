@@ -2,25 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   moviesItems: [],
-  moviesFilter: "",
 };
 
-const updateLocalStorage = (newItemArray) => {
-  localStorage.setItem("moviesData", JSON.stringify(newItemArray));
-};
+// const updateLocalStorage = (newArray) => {
+//   localStorage.setItem("moviesData", JSON.stringify(newArray));
+// };
 
 export const movieSlice = createSlice({
   name: "movies",
   initialState,
 
   reducers: {
-    getLocalStorageData: (state) => {
-      state.cartItems = JSON.parse(localStorage.getItem("moviesData"));
-    },
+    // getLocalStorageData: (state) => {
+    //   state.moviesItems = JSON.parse(localStorage.getItem("moviesData"));
+    // },
 
     getMoviesState: (state, action) => {
       state.moviesItems = action.payload;
       console.log("movies from dispatch:", state.moviesItems);
+
+      //   updateLocalStorage(state.moviesItems);
     },
     getMoviesFilter: (state, action) => {
       state.moviesFilter = action.payload;
@@ -33,21 +34,29 @@ export const movieSlice = createSlice({
           state.moviesItems = state.moviesItems.filter(
             (item) => item.category === state.moviesFilter
           );
+
+          //   updateLocalStorage(state.moviesItems);
           break;
         case "Drame":
           state.moviesItems = state.moviesItems.filter(
             (item) => item.category === state.moviesFilter
           );
+
+          //   updateLocalStorage(state.moviesItems);
           break;
         case "Animation":
           state.moviesItems = state.moviesItems.filter(
             (item) => item.category === state.moviesFilter
           );
+
+          //   updateLocalStorage(state.moviesItems);
           break;
         case "Comedy":
           state.moviesItems = state.moviesItems.filter(
             (item) => item.category === state.moviesFilter
           );
+
+          //   updateLocalStorage(state.moviesItems);
           break;
 
         default:
@@ -58,12 +67,14 @@ export const movieSlice = createSlice({
       const id = action.payload;
       console.log("valeur de id :", id);
       state.moviesItems = state.moviesItems.filter((item) => item.id !== id);
+
+      //   updateLocalStorage(state.moviesItems);
     },
   },
 });
 
 export const {
-  getLocalStorageData,
+  //   getLocalStorageData,
   getMoviesState,
   getMoviesFilter,
   removeMovie,

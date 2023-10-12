@@ -8,7 +8,9 @@ function LoginForm() {
   // state -------------
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
+
   // comportement -------------
+
   const handleChange = (e) => {
     setUserName(e.target.value);
   };
