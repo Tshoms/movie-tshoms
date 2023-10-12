@@ -2,11 +2,20 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { movies$ } from "../../data/movies";
 import Card from "../../reusable-ui/Card";
+import store from "../../redux/store.jsx";
+import { getMoviesState, removeMovie } from "../../redux/createSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Main() {
   // state -----------
-  const [arrayMovies, setArrayMovies] = useState([]);
+  const moviesArray = useSelector((state) => state.moviesItems.moviesItems);
+  console.log("valeur redux data :", moviesArray);
+
+  const [arrayMovies, setArrayMovies] = useState(moviesArray);
   console.log("valeur de arrayState :", arrayMovies);
+
+  const dispatch = useDispatch();
+
   // pagination ----------
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 4; // NB items/movies par page.
@@ -32,6 +41,8 @@ function Main() {
     getMovies();
   }, []);
 
+  store.dispatch(getMoviesState(arrayMovies));
+
   // pagination algo ----------
   const prePage = (event) => {
     event.preventDefault();
@@ -54,9 +65,9 @@ function Main() {
     setCurrentPage(id);
   };
 
-  const handleDelete = (e) => {
-    e.preventDefault();
+  const handleDelete = (id) => {
     alert("handleDelete !!!");
+    dispatch(removeMovie(id));
   };
 
   return (
@@ -71,7 +82,7 @@ function Main() {
             category={item.category}
             likes={item.likes}
             dislikes={item.dislikes}
-            onclick={handleDelete}
+            onclick={() => handleDelete(item.id)}
           />
         ))}
       </div>
