@@ -1,12 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaUserCircle } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { getFilter, getMoviesState } from "../../redux/createSlice";
+import { movies$ } from "../../data/movies";
+import store from "../../redux/store";
 
 function NavBar({ name }) {
+  // state --------
+  const [searchValue, setSearchValue] = useState("");
+  console.log("valeur de searchValue :", searchValue);
+  const dispatch = useDispatch();
+  dispatch(getFilter(searchValue));
+  // comportement -------
+  useEffect(() => {
+    const handleMoviesFilter = () => {
+      movies$.then((movies) => {
+        console.log("Liste des films dans Nav :", movies);
+        store.dispatch(getMoviesState(movies));
+      });
+    };
+    handleMoviesFilter();
+  }, []);
+
   return (
     <NavBarStyled>
       <div className="left-space">
         <h3 className="Brand">Particeep-Movie</h3>
+        <div className="search">
+          <select onChange={(e) => setSearchValue(e.target.value)}>
+            <option value="nothing">catégory</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Drame">Drame</option>
+            <option value="Animation">Animation</option>
+            <option value="Comedy">Comedy</option>
+          </select>
+        </div>
       </div>
       <div className="right-space">
         <div className="user-space">

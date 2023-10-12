@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { movies$ } from "../../data/movies";
 import Card from "../../reusable-ui/Card";
-import store from "../../redux/store.jsx";
 import { getMoviesState, removeMovie } from "../../redux/createSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -28,7 +27,7 @@ function Main() {
       movies$
         .then((movies) => {
           console.log("Liste des films :", movies);
-          store.dispatch(getMoviesState(movies));
+          dispatch(getMoviesState(movies));
         })
         .catch((error) => {
           console.error("Erreur lors du chargement des films :", error);
@@ -37,8 +36,6 @@ function Main() {
     };
     getMovies();
   }, []);
-
-  // store.dispatch(getMoviesState(arrayMovies));
 
   // pagination algo ----------
   const prePage = (event) => {
@@ -149,9 +146,10 @@ const MainStyled = styled.div`
   .pagination {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
     height: 40px;
     width: 250px;
-    border: 1px solid #1ce783;
 
     .page-item {
       display: flex;
