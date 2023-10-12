@@ -28,7 +28,7 @@ export const movieSlice = createSlice({
       console.log("movies after filter from dispatch :", state.moviesFilter);
       switch (state.moviesFilter) {
         case "nothing":
-          window.location.reload();
+          state.moviesItems = state.moviesItems.map((item) => item);
           break;
         case "Thriller":
           state.moviesItems = state.moviesItems.filter(
