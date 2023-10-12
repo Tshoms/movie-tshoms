@@ -2,15 +2,26 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { movies$ } from "../../data/movies";
 import Card from "../../reusable-ui/Card";
-import { getMoviesState, removeMovie } from "../../redux/createSlice";
+import {
+  getMoviesFilter,
+  getMoviesState,
+  removeMovie,
+} from "../../redux/createSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function Main() {
   // state -----------
   const moviesArray = useSelector((state) => state.moviesItems.moviesItems);
   console.log("valeur redux data :", moviesArray);
-
   const dispatch = useDispatch();
+
+  // searchValue  ------------
+  const [searchValue, setSearchValue] = useState("");
+  console.log("valeur de searchValue :", searchValue);
+
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   // pagination ----------
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,18 +35,14 @@ function Main() {
   // comportements ------------
   useEffect(() => {
     const getMovies = () => {
-      movies$
-        .then((movies) => {
-          console.log("Liste des films :", movies);
-          dispatch(getMoviesState(movies));
-        })
-        .catch((error) => {
-          console.error("Erreur lors du chargement des films :", error);
-        });
-      return movies$;
+      movies$.then((movies) => {
+        console.log("Liste des films :", movies);
+        dispatch(getMoviesState(movies));
+        dispatch(getMoviesFilter(searchValue));
+      });
     };
     getMovies();
-  }, []);
+  }, [searchValue]);
 
   // pagination algo ----------
   const prePage = (event) => {
@@ -58,7 +65,7 @@ function Main() {
     console.log("valeur id :", id);
     setCurrentPage(id);
   };
-
+  // ----------------------
   const handleDelete = (id) => {
     dispatch(removeMovie(id));
   };
@@ -66,6 +73,15 @@ function Main() {
   return (
     <MainStyled>
       <h3>Movies</h3>
+      <div className="search">
+        <select onChange={handleChange}>
+          <option value="nothing">catégory</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Drame">Drame</option>
+          <option value="Animation">Animation</option>
+          <option value="Comedy">Comedy</option>
+        </select>
+      </div>
       <div className="array-movie">
         {records.map((item, i) => (
           <Card
@@ -124,6 +140,7 @@ const MainStyled = styled.div`
     font-family: "Caveat", cursive;
     color: #1ce783;
     font-size: 40px;
+    margin-bottom: 20px;
   }
 
   .array-movie {
