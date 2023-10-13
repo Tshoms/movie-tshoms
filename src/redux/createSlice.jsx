@@ -4,24 +4,14 @@ const initialState = {
   moviesItems: [],
 };
 
-// const updateLocalStorage = (newArray) => {
-//   localStorage.setItem("moviesData", JSON.stringify(newArray));
-// };
-
 export const movieSlice = createSlice({
   name: "movies",
   initialState,
 
   reducers: {
-    // getLocalStorageData: (state) => {
-    //   state.moviesItems = JSON.parse(localStorage.getItem("moviesData"));
-    // },
-
     getMoviesState: (state, action) => {
       state.moviesItems = action.payload;
       console.log("movies from dispatch:", state.moviesItems);
-
-      //   updateLocalStorage(state.moviesItems);
     },
     getMoviesFilter: (state, action) => {
       state.moviesFilter = action.payload;
@@ -35,28 +25,24 @@ export const movieSlice = createSlice({
             (item) => item.category === state.moviesFilter
           );
 
-          //   updateLocalStorage(state.moviesItems);
           break;
         case "Drame":
           state.moviesItems = state.moviesItems.filter(
             (item) => item.category === state.moviesFilter
           );
 
-          //   updateLocalStorage(state.moviesItems);
           break;
         case "Animation":
           state.moviesItems = state.moviesItems.filter(
             (item) => item.category === state.moviesFilter
           );
 
-          //   updateLocalStorage(state.moviesItems);
           break;
         case "Comedy":
           state.moviesItems = state.moviesItems.filter(
             (item) => item.category === state.moviesFilter
           );
 
-          //   updateLocalStorage(state.moviesItems);
           break;
 
         default:
@@ -67,16 +53,10 @@ export const movieSlice = createSlice({
       const id = action.payload;
       console.log("valeur de id :", id);
       state.moviesItems = state.moviesItems.filter((item) => item.id !== id);
-
-      //   updateLocalStorage(state.moviesItems);
     },
   },
 });
 
-export const {
-  //   getLocalStorageData,
-  getMoviesState,
-  getMoviesFilter,
-  removeMovie,
-} = movieSlice.actions;
+export const { getMoviesState, getMoviesFilter, removeMovie } =
+  movieSlice.actions;
 export default movieSlice.reducer;

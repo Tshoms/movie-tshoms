@@ -12,12 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 function Main() {
   // state -----------
   const moviesArray = useSelector((state) => state.moviesItems.moviesItems);
-  console.log("valeur redux data :", moviesArray);
   const dispatch = useDispatch();
 
   // searchValue  ------------
   const [searchValue, setSearchValue] = useState("");
-  console.log("valeur de searchValue :", searchValue);
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);
@@ -36,7 +34,6 @@ function Main() {
   useEffect(() => {
     const getMovies = () => {
       movies$.then((movies) => {
-        console.log("Liste des films :", movies);
         dispatch(getMoviesState(movies));
         dispatch(getMoviesFilter(searchValue));
       });
@@ -47,7 +44,6 @@ function Main() {
   // pagination algo ----------
   const prePage = (event) => {
     event.preventDefault();
-    console.log("prePage !!!");
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
     }
@@ -55,14 +51,12 @@ function Main() {
 
   const nextPage = (event) => {
     event.preventDefault();
-    console.log("nextPage !!!");
     if (currentPage !== npage) {
       setCurrentPage(currentPage + 1);
     }
   };
 
   const changeCPage = (id) => {
-    console.log("valeur id :", id);
     setCurrentPage(id);
   };
   // ----------------------
@@ -134,7 +128,6 @@ const MainStyled = styled.div`
   align-items: center;
   height: 650px;
   width: 100%;
-  /* border: 1px solid green; */
 
   h3 {
     font-family: "Caveat", cursive;
@@ -145,16 +138,15 @@ const MainStyled = styled.div`
 
   .array-movie {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 350px); /* pixel suporter - row */
+    grid-template-columns: repeat(auto-fill, 350px); /* pixel - row */
     grid-gap: 30px; /* espace entre les items*/
     justify-content: center;
     align-items: center;
     height: auto;
     max-width: 800px; /* largeur max */
     width: 80%;
-    /* border: 1px solid red; */
     margin: 30px auto;
-    /* overflow-y: scroll; */
+
     p {
       color: white;
     }
