@@ -10,7 +10,6 @@ function NavBar({ name }) {
   // comportement ---------
   const handleLogOut = (e) => {
     e.preventDefault();
-    alert("log-out !!!");
     navigate({
       pathname: "/",
     });
