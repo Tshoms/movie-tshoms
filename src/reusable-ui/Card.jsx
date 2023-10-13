@@ -1,9 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { BiSolidDislike, BiSolidLike } from "react-icons/bi";
 import { TiDelete } from "react-icons/ti";
 
 function Card({ id, title, category, likes, dislikes, onclick }) {
+  // state ---------
+  const [like, setLike] = useState(likes);
+  const [dislike, setDislike] = useState(dislikes);
+
+  const [likeActive, setLikeActive] = useState(false);
+  const [dislikeActive, setDislikeActive] = useState(false);
+  // comportement ----------
+  const handleLike = (e) => {
+    e.preventDefault();
+    if (dislikeActive === false) {
+      setLikeActive(true);
+      setLike(like + 1);
+    }
+    if (dislikeActive === true) {
+      setDislikeActive(false);
+      setLikeActive(true);
+      setLike(like + 1);
+      setDislike(dislike - 1);
+    } else if (likeActive === true) {
+      setLike(like);
+    }
+  };
+
+  const handleDislike = (e) => {
+    e.preventDefault();
+
+    if (likeActive === false) {
+      setDislikeActive(true);
+      setDislike(dislike + 1);
+    }
+    if (likeActive === true) {
+      setLikeActive(false);
+      setDislikeActive(true);
+      setDislike(dislike + 1);
+      setLike(like - 1);
+    } else if (dislikeActive === true) {
+      setDislike(dislike);
+    }
+  };
   return (
     <CardStyled id={id}>
       <div className="title-space">
@@ -15,12 +54,18 @@ function Card({ id, title, category, likes, dislikes, onclick }) {
       </div>
       <div className="like-div">
         <div className="dislike-space">
-          <BiSolidDislike className="svg-dislike" />
-          <p>{dislikes}</p>
+          <BiSolidDislike
+            className={dislikeActive ? "active-dislike" : "svg-dislike"}
+            onClick={handleDislike}
+          />
+          <p>{dislike}</p>
         </div>
         <div className="like-space">
-          <BiSolidLike className="svg-like" />
-          <p>{likes}</p>
+          <BiSolidLike
+            className={likeActive ? "active-like" : "svg-like"}
+            onClick={handleLike}
+          />
+          <p>{like}</p>
         </div>
       </div>
       <div className="delete">
@@ -83,9 +128,17 @@ const CardStyled = styled.div`
       border: 1px solid #1ce783;
 
       .svg-dislike {
+        color: #7e0f04; /* red */
+        font-size: 25px;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+
+      .active-dislike {
         color: red;
         font-size: 25px;
         margin-right: 5px;
+        cursor: pointer;
       }
     }
     .like-space {
@@ -99,9 +152,17 @@ const CardStyled = styled.div`
       border: 1px solid #1ce783;
 
       .svg-like {
+        color: #457e04;
+        font-size: 25px;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+
+      .active-like {
         color: #1ce783;
         font-size: 25px;
         margin-right: 5px;
+        cursor: pointer;
       }
     }
   }
