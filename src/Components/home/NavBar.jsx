@@ -1,8 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { FaUserCircle } from "react-icons/fa";
+import PrimaryButton from "../../reusable-ui/PrimeryButton.jsx";
+import { useNavigate } from "react-router-dom";
 
 function NavBar({ name }) {
+  // state --------------
+  const navigate = useNavigate();
+  // comportement ---------
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    alert("log-out !!!");
+    navigate({
+      pathname: "/",
+    });
+  };
   return (
     <NavBarStyled>
       <div className="left-space">
@@ -15,6 +27,9 @@ function NavBar({ name }) {
           </div>
           <div className="logo-user">
             <FaUserCircle className="icon" />
+          </div>
+          <div className="log-out">
+            <PrimaryButton label="log-out" onClick={handleLogOut} />
           </div>
         </div>
       </div>
@@ -63,7 +78,7 @@ const NavBarStyled = styled.div`
       display: flex;
       flex-direction: row;
       height: 60px;
-      width: 150px;
+      width: 200px;
       /* border: 1px solid black; */
       margin-top: 10px;
       margin-right: 15px;
@@ -96,6 +111,13 @@ const NavBarStyled = styled.div`
           font-size: 35px;
           cursor: pointer;
         }
+      }
+
+      .log-out {
+        height: 75%;
+        width: 130px;
+        margin-top: 7px;
+        margin-left: 10px;
       }
     }
   }

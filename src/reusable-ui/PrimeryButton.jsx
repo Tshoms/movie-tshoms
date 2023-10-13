@@ -18,12 +18,12 @@ const PrimeryButtonStyled = styled.button`
   background-color: black;
   border: 2px solid #1ce783;
 
-  :hover {
+  /* :hover {
     color: black;
     background-color: white;
     border: 2px solid black;
     transition: all 200ms ease-out;
-  }
+  } */
 `;
 
 export default PrimeryButton;
