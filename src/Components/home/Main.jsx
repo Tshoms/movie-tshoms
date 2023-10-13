@@ -2,40 +2,48 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { movies$ } from "../../data/movies";
 import Card from "../../reusable-ui/Card";
+import {
+  getMoviesFilter,
+  getMoviesState,
+  removeMovie,
+} from "../../redux/createSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Main() {
   // state -----------
-  const [arrayMovies, setArrayMovies] = useState([]);
-  console.log("valeur de arrayState :", arrayMovies);
+  const moviesArray = useSelector((state) => state.moviesItems.moviesItems);
+  const dispatch = useDispatch();
+
+  // searchValue  ------------
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+  };
+
   // pagination ----------
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 4; // NB items/movies par page.
   const lastIndex = currentPage * recordsPerPage; // obtenir le dernier index par page afin de le multiplier par 4.
   const firstIndex = lastIndex - recordsPerPage; // obtenir le premier index par page afin de le soustraire par 4.
-  const records = arrayMovies.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(arrayMovies.length / recordsPerPage);
+  const records = moviesArray.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(moviesArray.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
   // comportements ------------
   useEffect(() => {
     const getMovies = () => {
-      movies$
-        .then((movies) => {
-          console.log("Liste des films :", movies);
-          setArrayMovies(movies);
-        })
-        .catch((error) => {
-          console.error("Erreur lors du chargement des films :", error);
-        });
-      return movies$;
+      movies$.then((movies) => {
+        dispatch(getMoviesState(movies));
+        dispatch(getMoviesFilter(searchValue));
+      });
     };
     getMovies();
-  }, []);
+  }, [searchValue]);
 
   // pagination algo ----------
   const prePage = (event) => {
     event.preventDefault();
-    console.log("prePage !!!");
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
     }
@@ -43,25 +51,31 @@ function Main() {
 
   const nextPage = (event) => {
     event.preventDefault();
-    console.log("nextPage !!!");
     if (currentPage !== npage) {
       setCurrentPage(currentPage + 1);
     }
   };
 
   const changeCPage = (id) => {
-    console.log("valeur id :", id);
     setCurrentPage(id);
   };
-
-  const handleDelete = (e) => {
-    e.preventDefault();
-    alert("handleDelete !!!");
+  // ----------------------
+  const handleDelete = (id) => {
+    dispatch(removeMovie(id));
   };
 
   return (
     <MainStyled>
       <h3>Movies</h3>
+      <div className="search">
+        <select onChange={handleChange}>
+          <option value="nothing">catégory</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Drame">Drame</option>
+          <option value="Animation">Animation</option>
+          <option value="Comedy">Comedy</option>
+        </select>
+      </div>
       <div className="array-movie">
         {records.map((item, i) => (
           <Card
@@ -71,7 +85,7 @@ function Main() {
             category={item.category}
             likes={item.likes}
             dislikes={item.dislikes}
-            onclick={handleDelete}
+            onclick={() => handleDelete(item.id)}
           />
         ))}
       </div>
@@ -114,26 +128,25 @@ const MainStyled = styled.div`
   align-items: center;
   height: 650px;
   width: 100%;
-  /* border: 1px solid green; */
 
   h3 {
     font-family: "Caveat", cursive;
     color: #1ce783;
     font-size: 40px;
+    margin-bottom: 20px;
   }
 
   .array-movie {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 350px); /* pixel suporter - row */
+    grid-template-columns: repeat(auto-fill, 350px); /* pixel - row */
     grid-gap: 30px; /* espace entre les items*/
     justify-content: center;
     align-items: center;
     height: auto;
     max-width: 800px; /* largeur max */
     width: 80%;
-    /* border: 1px solid red; */
     margin: 30px auto;
-    /* overflow-y: scroll; */
+
     p {
       color: white;
     }
@@ -142,9 +155,10 @@ const MainStyled = styled.div`
   .pagination {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
     height: 40px;
     width: 250px;
-    border: 1px solid #1ce783;
 
     .page-item {
       display: flex;
@@ -174,7 +188,7 @@ const MainStyled = styled.div`
   }
 
   @media (max-width: 912px) {
-    height: 1080px;
+    height: 1150px;
   }
 `;
 
