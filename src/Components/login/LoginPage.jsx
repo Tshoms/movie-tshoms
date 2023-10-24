@@ -10,7 +10,7 @@ function LoginPage() {
       <video src={video} autoPlay loop muted></video>
 
       <div className="content">
-        <h1>Particeep-Movie</h1>
+        <h1>Tshoms-Movie</h1>
         <h2>Enjoy your movie !</h2>
         <LoginForm />
       </div>

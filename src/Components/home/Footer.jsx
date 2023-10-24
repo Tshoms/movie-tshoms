@@ -4,7 +4,7 @@ import styled from "styled-components";
 function Footer() {
   return (
     <FooterStyled>
-      <h2>Particeep-Movie</h2>
+      <h2>Tshoms-Movie</h2>
       <br />
       <p>by Tshoms Jordy</p>
     </FooterStyled>

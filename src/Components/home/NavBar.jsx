@@ -17,7 +17,7 @@ function NavBar({ name }) {
   return (
     <NavBarStyled>
       <div className="left-space">
-        <h3 className="Brand">Particeep-Movie</h3>
+        <h3 className="Brand">Tshoms-Movie</h3>
       </div>
       <div className="right-space">
         <div className="user-space">
@@ -122,6 +122,7 @@ const NavBarStyled = styled.div`
   }
 
   /* ---- media Querie ---- */
+
   @media (max-width: 414px) {
     .left-space {
       justify-content: center;

@@ -8,7 +8,7 @@ function Banner({ name }) {
     <BannerStyled>
       <NavBar name={name} />
       <div className="overlay"></div>
-      <h3 className="Brand">Particeep-Movie</h3>
+      <h3 className="Brand">Tshoms-Movie</h3>
       <p className="p-title">Enjoy your movie !</p>
 
       <div className="icon-space">
